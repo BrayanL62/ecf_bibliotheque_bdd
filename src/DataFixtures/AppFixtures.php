@@ -2,9 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Kind;
-use App\Entity\Borrower;
+use App\Entity\Author;
 use App\Entity\Book;
+use App\Entity\Borrower;
+use App\Entity\Kind;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -38,9 +39,11 @@ class AppFixtures extends Fixture
     {
         //On définit le nombre d'objets qu'il va falloir créer
         $booksCount = 1000;
+        $authorCount = 500;
 
         // On appelle les fonctions qui vont créer les objets dans la BDD
         $this->loadAdmin($manager);
+        $authors = $this->loadAuthors($manager, $authorCount);
         $borrowers = $this->loadBorrowers($manager);
         $kinds = $this->loadKinds($manager);
         // $books = $this->loadBooks($manager, $booksCount);
@@ -60,6 +63,42 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($user);
+    }
+
+    public function loadAuthors(ObjectManager $manager, int $count)
+    {
+        // Création des authors avec des données constantes
+        $authors = [];
+
+        $author = new Author();
+        $author->setLastname('auteur inconnu');
+        $author->setFirstname('');
+        $manager->persist($author);
+
+        $authors[] = $author;
+
+        $author = new Author();
+        $author->setLastname('Cartier');
+        $author->setFirstname('Hugues');
+        $manager->persist($author);
+
+        $authors[] = $author;
+
+        $author = new Author();
+        $author->setLastname('Lambert');
+        $author->setFirstname('Armand');
+        $manager->persist($author);
+
+        $authors[] = $author;
+
+        $author = new Author();
+        $author->setLastname('Moitessier');
+        $author->setFirstname('Thomas');
+        $manager->persist($author);
+
+        $authors[] = $author;
+
+        // Création de authors avec des données aléatoires
     }
 
     public function loadBorrowers(ObjectManager $manager)
