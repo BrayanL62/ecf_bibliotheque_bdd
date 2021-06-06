@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
         // On appelle les fonctions qui vont créer les objets dans la BDD
         $this->loadAdmin($manager);
         $authors = $this->loadAuthors($manager, 500);
-        $borrowers = $this->loadBorrowers($manager);
+        $borrowers = $this->loadBorrowers($manager, 100);
         $kinds = $this->loadKinds($manager);
         // $books = $this->loadBooks($manager, $booksCount);
 
@@ -109,10 +109,33 @@ class AppFixtures extends Fixture
         }
     }
 
-    public function loadBorrowers(ObjectManager $manager)
+    public function loadBorrowers(ObjectManager $manager, int $count)
     {
         $borrowers = [];
+        // Génération du premier Borrower
+        $user = new User();
+        $user->setEmail('foo.foo@example.com');
+        // hashage du mot de passe
+        $password = $this->encoder->encodePassword($user, '123');
+        $user->setPassword($password);
+        $user->setRoles(['ROLE_BORROWER']);
 
+        $manager->persist($user);
+
+        // Création d'un borrower avec des données constantes
+        $borrower = new Borrower();
+        $borrower->setLastname('foo');
+        $borrower->setFirstname('foo');
+        $borrower->setPhoneNumber('123456789');
+        $borrower->setActive(true);
+        $borrower->setCreationDate(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-01-01 10:00:00'));
+        $borrower->setUser($user);
+
+        $manager->persist($borrower);
+
+        $borrowers[] = $borrower;
+
+        // Création d'un deuxième Borrower
         $user = new User();
         $user->setEmail('bar.bar@example.com');
         // hashage du mot de passe
@@ -128,12 +151,70 @@ class AppFixtures extends Fixture
         $borrower->setFirstname('bar');
         $borrower->setPhoneNumber('123456789');
         $borrower->setActive(false);
-        $borrower->setCreationDate(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
+        $borrower->setCreationDate(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-01-01 11:00:00'));
+
+        $creationDate = $borrower->getCreationDate();
+        $modificationDate = \DateTime::createFromFormat('Y-m-d H:i:s', $creationDate->format('Y-m-d H:i:s'));
+        $modificationDate->add(new \DateInterval('P3M'));
+        $modificationDate->add(new \DateInterval('PT1H'));
+
+        $borrower->setModificationDate($modificationDate);
         $borrower->setUser($user);
 
         $manager->persist($borrower);
 
         $borrowers[] = $borrower;
+
+        // Création d'un troisième Borrower
+        $user = new User();
+        $user->setEmail('baz.baz@example.com');
+        // hashage du mot de passe
+        $password = $this->encoder->encodePassword($user, '123');
+        $user->setPassword($password);
+        $user->setRoles(['ROLE_BORROWER']);
+
+        $manager->persist($user);
+
+        // Création d'un borrower avec des données constantes
+        $borrower = new Borrower();
+        $borrower->setLastname('baz');
+        $borrower->setFirstname('baz');
+        $borrower->setPhoneNumber('123456789');
+        $borrower->setActive(true);
+        $borrower->setCreationDate(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-01-01 12:00:00'));
+        $borrower->setUser($user);
+
+        $manager->persist($borrower);
+
+        $borrowers[] = $borrower;
+
+        for($i = 0; $i < $count; $i++){
+            $user = new User();
+            $user->setEmail($this->faker->email());
+            // hashage du mot de passe
+            $password = $this->encoder->encodePassword($user, '123');
+            $user->setPassword($password);
+            $user->setRoles(['ROLE_BORROWER']);
+
+            $borrower = new Borrower();
+            $borrower->setLastname($this->faker->lastname());
+            $borrower->setFirstname($this->faker->firstname());
+            $borrower->setPhoneNumber($this->faker->phoneNumber());
+            $borrower->setActive($this->faker->boolean());
+            $borrower->setCreationDate($this->faker->dateTime());
+            $borrower->setUser($user);
+
+            $creationDate = $borrower->getCreationDate();
+            $modificationDate = \DateTime::createFromFormat('Y-m-d H:i:s',  $creationDate->format('Y-m-d H:i:s'));
+            $modificationDate->add(new \DateInterval('P3M'));
+            $modificationDate->add(new \DateInterval('PT1H'));
+
+            $borrower->setModificationDate($modificationDate);
+
+            $manager->persist($borrower);
+
+            $borrowers[] = $borrower;
+        }
 
     }
 
