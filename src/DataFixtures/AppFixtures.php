@@ -39,11 +39,11 @@ class AppFixtures extends Fixture
     {
         //On définit le nombre d'objets qu'il va falloir créer
         $booksCount = 1000;
-        $authorCount = 500;
+        // $authorCount = 500;
 
         // On appelle les fonctions qui vont créer les objets dans la BDD
         $this->loadAdmin($manager);
-        $authors = $this->loadAuthors($manager, $authorCount);
+        $authors = $this->loadAuthors($manager, 500);
         $borrowers = $this->loadBorrowers($manager);
         $kinds = $this->loadKinds($manager);
         // $books = $this->loadBooks($manager, $booksCount);
@@ -99,6 +99,14 @@ class AppFixtures extends Fixture
         $authors[] = $author;
 
         // Création de authors avec des données aléatoires
+        for($i = 0; $i <$count; $i++){
+            $author = new Author();
+            $author->setLastname($this->faker->lastname());
+            $author->setFirstname($this->faker->firstname());
+
+            $manager->persist($author);
+            $authors[] = $author;
+        }
     }
 
     public function loadBorrowers(ObjectManager $manager)
