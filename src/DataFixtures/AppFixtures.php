@@ -94,12 +94,69 @@ class AppFixtures extends Fixture
     {
         // On déclare un tableau qui servira à stocker les différents kinds 
         $kinds = [];
-
         $kind = new Kind();
         $kind->setName('poésie');
-        
         $manager->persist($kind);
+        $kinds[] = $kind;
 
+        $kind = new Kind();
+        $kind->setName('nouvelle');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('roman historique');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('roman d\'amour');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('roman d\'aventure');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('science-fiction');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('fantasy');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('biographie');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('conte');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('témoignage');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('théâtre');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('essai');
+        $manager->persist($kind);
+        $kinds[] = $kind;
+
+        $kind = new Kind();
+        $kind->setName('journal intime');
+        $manager->persist($kind);
         $kinds[] = $kind;
     }
 
