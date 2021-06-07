@@ -37,19 +37,30 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        // Création des tableaux pour les données constantes des Authors
+        $authorLastname = ['auteur inconnu', 'Cartier', 'Lambert', 'Moitessier'];
+        $authorFirstname = ['', 'Hugues', 'Armand', 'Thomas'];
+
+        // Création du tableau de Kind
+        $kindArray = ['poésie', 'nouvelle', 'roman historique', 'roman d\'amour', 'roman d\'aventure', 'science-fiction', 'fantasy', 'biographie', 'conte', 'témoignage', 'théâtre', 'essai', 'journal intime'];
+
+        // Création des tableaux pour les données constantes des Borrowers
+
+
         //On définit le nombre d'objets qu'il va falloir créer
         $booksCount = 1000;
-        // $authorCount = 500;
 
         // On appelle les fonctions qui vont créer les objets dans la BDD
         $this->loadAdmin($manager);
-        $authors = $this->loadAuthors($manager, 500);
+        $authors = $this->loadAuthors($manager, $authorLastname, $authorFirstname, 500);
         $borrowers = $this->loadBorrowers($manager, 100);
-        $kinds = $this->loadKinds($manager);
+        $kinds = $this->loadKinds($manager, $kindArray);
         // $books = $this->loadBooks($manager, $booksCount);
 
         $manager->flush();
     }
+
+    // Fonction qui va servir à charger les données ADMIN.
 
     public function loadAdmin(ObjectManager $manager)
     {
@@ -65,38 +76,26 @@ class AppFixtures extends Fixture
         $manager->persist($user);
     }
 
-    public function loadAuthors(ObjectManager $manager, int $count)
+    // Fonction qui va servir à charger les données AUTHORS.
+
+    public function loadAuthors(ObjectManager $manager, array $authorLastname, $authorFirstname, int $count)
     {
-        // Création des authors avec des données constantes
-        $authors = [];
+        // Création des authors avec des données constantes via une boucle foreach
 
-        $author = new Author();
-        $author->setLastname('auteur inconnu');
-        $author->setFirstname('');
-        $manager->persist($author);
 
-        $authors[] = $author;
+        foreach (array_combine($authorLastname, $authorFirstname) as $lastname => $firstname) {
+            // print $code . 'is your Id code and '  . $name . 'is your name';
 
-        $author = new Author();
-        $author->setLastname('Cartier');
-        $author->setFirstname('Hugues');
-        $manager->persist($author);
+            $authors = [];
 
-        $authors[] = $author;
+            $author = new Author();
+            $author->setLastname($lastname);
+            $author->setFirstname($firstname);
+            $manager->persist($author);
 
-        $author = new Author();
-        $author->setLastname('Lambert');
-        $author->setFirstname('Armand');
-        $manager->persist($author);
-
-        $authors[] = $author;
-
-        $author = new Author();
-        $author->setLastname('Moitessier');
-        $author->setFirstname('Thomas');
-        $manager->persist($author);
-
-        $authors[] = $author;
+            $authors[] = $author;
+        }
+  
 
         // Création de authors avec des données aléatoires
         for($i = 0; $i <$count; $i++){
@@ -108,6 +107,9 @@ class AppFixtures extends Fixture
             $authors[] = $author;
         }
     }
+
+    // Fonction qui va servir à charger les données BORROWERS.
+
 
     public function loadBorrowers(ObjectManager $manager, int $count)
     {
@@ -218,74 +220,21 @@ class AppFixtures extends Fixture
 
     }
 
-    public function loadKinds(ObjectManager $manager)
+    // Fonction qui va servir à charger les données KINDS.
+
+    public function loadKinds(ObjectManager $manager, array $kindArray)
     {
         // On déclare un tableau qui servira à stocker les différents kinds 
-        $kinds = [];
-        $kind = new Kind();
-        $kind->setName('poésie');
-        $manager->persist($kind);
-        $kinds[] = $kind;
+        
+        foreach($kindArray as $i){
+            $kinds = [];
 
-        $kind = new Kind();
-        $kind->setName('nouvelle');
-        $manager->persist($kind);
-        $kinds[] = $kind;
+            $kind = new Kind();
+            $kind->setName($i);
+            $manager->persist($kind);
 
-        $kind = new Kind();
-        $kind->setName('roman historique');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('roman d\'amour');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('roman d\'aventure');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('science-fiction');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('fantasy');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('biographie');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('conte');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('témoignage');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('théâtre');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('essai');
-        $manager->persist($kind);
-        $kinds[] = $kind;
-
-        $kind = new Kind();
-        $kind->setName('journal intime');
-        $manager->persist($kind);
-        $kinds[] = $kind;
+            $kinds[] = $kind;
+        }
     }
 
     // public function loadBooks(ObjectManager $manager, int $count)
