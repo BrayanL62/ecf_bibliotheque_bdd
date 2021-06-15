@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Author;
 use App\Entity\Book;
 use App\Entity\Borrower;
+use App\Entity\Borrowing;
 use App\Entity\Kind;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -41,19 +42,26 @@ class AppFixtures extends Fixture
         $authorLastname = ['auteur inconnu', 'Cartier', 'Lambert', 'Moitessier'];
         $authorFirstname = ['', 'Hugues', 'Armand', 'Thomas'];
 
+        // Création des tableaux pour les données constantes des Books
+        $bookTitle = ['Lorem Ipsum Dolor Sit Amet', 'Consectetur adipiscing elit', 'Mihi quidem Antiochum', 'Quem audis satis belle'];
+        $bookPublicationYear = [2010, 2011, 2012, 2013];
+        $bookPages = [100, 150, 200, 250];
+        $bookISBN = ['9785786930024', '9783817260935', '9782020493727', '9794059561353'];
+
         // Création du tableau de Kind
         $kindArray = ['poésie', 'nouvelle', 'roman historique', 'roman d\'amour', 'roman d\'aventure', 'science-fiction', 'fantasy', 'biographie', 'conte', 'témoignage', 'théâtre', 'essai', 'journal intime'];
 
-        // Création des tableaux pour les données constantes des Borrowers
-
-
-        //On définit le nombre d'objets qu'il va falloir créer
-        $booksCount = 1000;
-
         // On appelle les fonctions qui vont créer les objets dans la BDD
         $this->loadAdmin($manager);
+
         $authors = $this->loadAuthors($manager, $authorLastname, $authorFirstname, 500);
+
+        $books = $this->loadBooks($manager, 1000, $authors, $bookTitle, $bookPublicationYear, $bookPages, $bookISBN);
+
         $borrowers = $this->loadBorrowers($manager, 100);
+
+        // $borrowing = $this->loadBorrowings($manager);
+
         $kinds = $this->loadKinds($manager, $kindArray);
         // $books = $this->loadBooks($manager, $booksCount);
 
@@ -82,9 +90,7 @@ class AppFixtures extends Fixture
     {
         // Création des authors avec des données constantes via une boucle foreach
 
-
         foreach (array_combine($authorLastname, $authorFirstname) as $lastname => $firstname) {
-            // print $code . 'is your Id code and '  . $name . 'is your name';
 
             $authors = [];
 
@@ -92,7 +98,7 @@ class AppFixtures extends Fixture
             $author->setLastname($lastname);
             $author->setFirstname($firstname);
             $manager->persist($author);
-
+            
             $authors[] = $author;
         }
   
@@ -108,8 +114,61 @@ class AppFixtures extends Fixture
         }
     }
 
-    // Fonction qui va servir à charger les données BORROWERS.
+    // Fonction qui va servir à charger les données BOOKS
+    public function loadBooks(ObjectManager $manager, int $count, array $authors, $bookTitle, $bookPublicationYear, $bookPages, $bookISBN)
+    {
 
+        // Création d'un tableau qui contiendra les books qu'on va créer.
+        // La fonction va pouvoir renvoyer ce tableau pour que d'autres fonctions
+        // de création d'objets puissent utiliser les books.
+
+        foreach (array_combine($bookTitle, $bookISBN) as $title => $isbn){
+
+            $publication = 2010;
+            $pages = 100;
+            $authorIndex = 0;
+            $author = $authors[$authorIndex];
+
+            $books = [];
+    
+            // Création d'un book avec des données constantes.
+            $book = new Book();
+            $book->setTitle($title);
+            $book->setPublicationYear($publication);
+            $book->setNumberPages($pages);
+            $book->setIsbnCode($isbn);
+            $book->setAuthor($author);
+    
+            $manager->persist($book);
+
+            $publication++;
+            $pages += 50;
+
+            $manager->persist($book);
+
+            $books[] = $book;
+
+        }
+
+        // // on détermine aléatoirement le nombre de Books associés au Kind
+        // $kindCount = random_int(0, 10);
+        // // on créé une liste aléatoire de kind
+        // $randomKinds = $this->faker->randomElements($kinds, $kindCount);
+        
+        // // association du teacher et des projets aléatoires
+        // foreach ($randomKinds as $randomKind) {
+        //     $book->addKind($randomKind);
+        // }
+
+        // $manager->persist($book);
+
+        // // On ajoute le premier book que l'on vient de créer
+        // $books[] = $book;
+
+
+    }
+
+    // Fonction qui va servir à charger les données BORROWERS.
 
     public function loadBorrowers(ObjectManager $manager, int $count)
     {
@@ -220,6 +279,25 @@ class AppFixtures extends Fixture
 
     }
 
+    // Fonction qui va servir à charger les données BORROWING
+    // public function loadBorrowings(ObjectManager $manager) {
+
+    //     $borrowings = [];
+    
+    //     $borrowing = new Borrowing();
+    //     $borrowing->setBorrowingDate(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-02-01 10:00:00'));
+    //     $borrowingDate = $borrowing->getBorrowingDate();
+    //     $modificationDate = \DateTime::createFromFormat('Y-m-d H:i:s',  $borrowingDate->format('Y-m-d H:i:s'));
+    //     $modificationDate->add(new \DateInterval('P1M'));
+    //     $borrowing->setReturnDate($modificationDate);
+    //     // $borrowing->setBorrower();
+    
+    //     $manager->persist($borrowing);
+    
+    //     $borrowings[] = $borrowing;
+
+    // }
+
     // Fonction qui va servir à charger les données KINDS.
 
     public function loadKinds(ObjectManager $manager, array $kindArray)
@@ -235,29 +313,9 @@ class AppFixtures extends Fixture
 
             $kinds[] = $kind;
         }
+        
     }
 
-    // public function loadBooks(ObjectManager $manager, int $count)
-    // {
-    //     // Création d'un tableau qui contiendra les books qu'on va créer.
-    //     // La fonction va pouvoir renvoyer ce tableau pour que d'autres fonctions
-    //     // de création d'objets puissent utiliser les books.
-    //     $books = [];
-
-    //     // Création d'un book avec des données constantes.
-    //     $book = new Book();
-    //     $book->setTitle('Lorem Ipsum Dolor Sit Amet');
-    //     $book->setPublicationYear(2010);
-    //     $book->setNumberPages(100);
-    //     $book->setIsbnCode('9785786930024');
-    //     $book->setAuthor();
-
-    //     $manager->persist($book);
-
-    //     // On ajoute le premier book que l'on vient de créer
-    //     $books[] = $book;
-
-
-    // }
+    
 
 }
