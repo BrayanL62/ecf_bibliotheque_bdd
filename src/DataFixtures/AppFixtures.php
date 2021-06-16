@@ -189,7 +189,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $user = new User();
         $user->setEmail('foo.foo@example.com');
         // hashage du mot de passe
-        $password = $this->encoder->encodePassword($user, '123');
+        $password = $this->encoder->encodePassword($user, $this->faker->password());
         $user->setPassword($password);
         $user->setRoles(['ROLE_BORROWER']);
 
@@ -212,7 +212,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $user = new User();
         $user->setEmail('bar.bar@example.com');
         // hashage du mot de passe
-        $password = $this->encoder->encodePassword($user, '123');
+        $password = $this->encoder->encodePassword($user, $this->faker->password());
         $user->setPassword($password);
         $user->setRoles(['ROLE_BORROWER']);
 
@@ -230,8 +230,8 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $modificationDate = \DateTime::createFromFormat('Y-m-d H:i:s', $creationDate->format('Y-m-d H:i:s'));
         $modificationDate->add(new \DateInterval('P3M'));
         $modificationDate->add(new \DateInterval('PT1H'));
-
         $borrower->setModificationDate($modificationDate);
+
         $borrower->setUser($user);
 
         $manager->persist($borrower);
@@ -242,7 +242,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $user = new User();
         $user->setEmail('baz.baz@example.com');
         // hashage du mot de passe
-        $password = $this->encoder->encodePassword($user, '123');
+        $password = $this->encoder->encodePassword($user, $this->faker->password());
         $user->setPassword($password);
         $user->setRoles(['ROLE_BORROWER']);
 
@@ -262,6 +262,11 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $borrowers[] = $borrower;
 
         for($i=0;$i<100;$i++){
+            $modification = $this->faker->boolean($chanceOfGettingTrue = 50);
+
+            $randomMonth = $this->faker->numberBetween($min = 1, $max = 7);
+            $randomHour = $this->faker->numberBetween($min = 1, $max = 24);
+
             $user = new User();
             $user->setEmail($this->faker->email());
             // hashage du mot de passe
@@ -271,13 +276,23 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
 
             $manager->persist($user);
 
-            // Création d'un borrower avec des données constantes
+
+            // Création d'un borrower avec des données aléatoires
             $borrower = new Borrower();
             $borrower->setLastname($this->faker->lastname());
             $borrower->setFirstname($this->faker->firstname());
             $borrower->setPhoneNumber($this->faker->phoneNumber());
             $borrower->setActive($this->faker->boolean($chanceOfGettingTrue = 50));
             $borrower->setCreationDate($this->faker->dateTime($max = 'now', $timezone = null));
+
+            if($modification){
+                $creationDate = $borrower->getCreationDate();
+                $modificationDate = \DateTime::createFromFormat('Y-m-d H:i:s', $creationDate->format('Y-m-d H:i:s'));
+                $modificationDate->add(new \DateInterval("P{$randomMonth}M"));
+                $modificationDate->add(new \DateInterval("PT{$randomHour}H"));
+                $borrower->setModificationDate($modificationDate);
+            }
+            
             $borrower->setUser($user);
 
             $manager->persist($borrower);
