@@ -138,6 +138,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $book->setNumberPages(200);
         $book->setIsbnCode('9782020493727');
         $book->setAuthor($authors[2]);
+        $book->addKind($kinds[2]);
 
         $manager->persist($book);
 
@@ -150,6 +151,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $book->setNumberPages(250);
         $book->setIsbnCode('9794059561353');
         $book->setAuthor($authors[3]);
+        $book->addKind($kinds[3]);
 
         $manager->persist($book);
 
@@ -157,8 +159,9 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
 
         for($i=0;$i<1000;$i++){
 
-            // Choisir un auteur random à chaque tour
+            // Choisir un author et un kind random à chaque tour
             $randomAuthor = $this->faker->randomElement($authors);
+            $randomKind = $this->faker->randomElement($kinds);
             // Création des données aléatoires
             $book = new Book();
 
@@ -167,6 +170,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
             $book->setNumberPages($this->faker->numberBetween($min = 40, $max = 1100));
             $book->setIsbnCode($this->faker->isbn13());
             $book->setAuthor($randomAuthor);
+            $book->addKind($randomKind);
 
             $manager->persist($book);
 
