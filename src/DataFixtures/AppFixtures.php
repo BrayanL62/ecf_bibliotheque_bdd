@@ -350,6 +350,9 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $borrowings[] = $borrowing;
 
         for($i=0;$i<200;$i++){
+            $modification = $this->faker->boolean($chanceOfGettingTrue = 50);
+            $randomMonth = $this->faker->numberBetween($min = 1, $max = 7);
+            $randomHour = $this->faker->numberBetween($min = 1, $max = 24);
             // Assignation des données aléatoires pour un Book et un Borrower
             $randomBorrower = $this->faker->randomElement($borrowers);
             $randomBook = $this->faker->randomElement($books);
@@ -358,6 +361,16 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
             $borrowing->setBorrowingDate($this->faker->dateTime($max = 'now', $timezone = null));
             $borrowingDate = $borrowing->getBorrowingDate();
             $modificationDate = \DateTime::createFromFormat('Y-m-d H:i:s',  $borrowingDate->format('Y-m-d H:i:s'));
+
+            $borrowing->setBorrowingDate($this->faker->dateTime($max = 'now', $timezone = null));
+
+            if($modification){
+                $borrowingDate = $borrowing->getBorrowingDate();
+                $returnDate = \DateTime::createFromFormat('Y-m-d H:i:s', $borrowingDate->format('Y-m-d H:i:s'));
+                $returnDate->add(new \DateInterval("P{$randomMonth}M"));
+                $returnDate->add(new \DateInterval("PT{$randomHour}H"));
+                $borrowing->setReturnDate($returnDate);
+            }
 
             $borrowing->setBorrower($randomBorrower);
             $borrowing->setBook($randomBook);
