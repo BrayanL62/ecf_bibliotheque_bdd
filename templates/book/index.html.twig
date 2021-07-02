@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BookController!{% endblock %}
+{% block title %}Book index{% endblock %}
 
 {% block body %}
-
-<h1>Book Index</h1>
+    <h1>Book index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Publication Year</th>
-                <th>Number Pages</th>
-                <th>ISBN Code</th>
+                <th>Publication_year</th>
+                <th>Number_pages</th>
+                <th>Isbn_code</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,16 +25,17 @@
                 <td>{{ book.numberPages }}</td>
                 <td>{{ book.isbnCode }}</td>
                 <td>
+                    <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
+                    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    {# <a href="{{ path('book_new') }}">Create new</a> #}
-
+    <a href="{{ path('book_new') }}">Create new</a>
 {% endblock %}

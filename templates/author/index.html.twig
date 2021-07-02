@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AuthorController!{% endblock %}
+{% block title %}Author index{% endblock %}
 
 {% block body %}
-
-<h1>Author Index</h1>
+    <h1>Author index</h1>
 
     <table class="table">
         <thead>
@@ -12,6 +11,7 @@
                 <th>Id</th>
                 <th>Lastname</th>
                 <th>Firstname</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,16 +21,17 @@
                 <td>{{ author.lastname }}</td>
                 <td>{{ author.firstname }}</td>
                 <td>
+                    <a href="{{ path('author_show', {'id': author.id}) }}">show</a>
+                    <a href="{{ path('author_edit', {'id': author.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    {# <a href="{{ path('book_new') }}">Create new</a> #}
-
+    <a href="{{ path('author_new') }}">Create new</a>
 {% endblock %}

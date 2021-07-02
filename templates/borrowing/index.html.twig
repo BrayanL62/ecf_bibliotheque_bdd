@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BorrowingController!{% endblock %}
+{% block title %}Borrowing index{% endblock %}
 
 {% block body %}
-
-    <h1>Borrowing Index</h1>
-
+    <h1>Borrowing index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Borrowing Date</th>
-                <th>Return Date</th>
+                <th>Borrowing_date</th>
+                <th>Return_date</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -22,16 +21,17 @@
                 <td>{{ borrowing.borrowingDate ? borrowing.borrowingDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ borrowing.returnDate ? borrowing.returnDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
+                    <a href="{{ path('borrowing_show', {'id': borrowing.id}) }}">show</a>
+                    <a href="{{ path('borrowing_edit', {'id': borrowing.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    {# <a href="{{ path('book_new') }}">Create new</a> #}
-
+    <a href="{{ path('borrowing_new') }}">Create new</a>
 {% endblock %}
