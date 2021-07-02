@@ -16,9 +16,9 @@ class BorrowerType extends AbstractType
             ->add('firstname')
             ->add('phone_number')
             ->add('active')
-            ->add('creation_date')
-            ->add('modification_date')
-            ->add('user')
+            // ->add('creation_date')
+            // ->add('modification_date')
+            // ->add('user')
         ;
     }
 
