@@ -28,10 +28,21 @@ class TestController extends AbstractController
         // Récupération de l'entity manager
         $entityManager = $this->getDoctrine()->getManager();
 
-        // Récupération du User dont l'id est 2.
+        // Récupération de tous les user.
         $user = $userRepository->findAll();
-
         dump($user);
+
+        // Récupération du user dont l'ID = 1
+        $userIdOne = $userRepository->findOneById(1);
+        dump($userIdOne);
+
+        // Récupération du user dont l'email est 'foo.foo@example.com'
+        $fooEmail = $userRepository->findOneBy(['email' => 'foo.foo@example.com']);
+        dump($fooEmail);
+
+        // Récupération des users dont le role est 'ROLE_BORROWER'
+        $borrowerRole = $userRepository->findByRole('ROLE_BORROWER');
+        dump($borrowerRole);
 
         exit();
     }
