@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "autoprefixer": "^10.2.6",
+    "bootstrap": "^5.0.0-beta3",
+    "build": "^0.1.4",
+    "encore": "^0.0.30-beta",
+    "postcss-loader": "^6.1.1",
+    "webpack": "^5.42.0"
+  },
+  "devDependencies": {
+    "sass": "^1.35.1",
+    "sass-loader": "^10.2.0"
+  },
+  "scripts": {
+    "encore": "encore"
+  }
+}
