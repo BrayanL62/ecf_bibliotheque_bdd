@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use App\Repository\BorrowerRepository;
 use App\Repository\BorrowingRepository;
@@ -18,6 +19,7 @@ class TestController extends AbstractController
      * @Route("/test", name="test")
      */
     public function index(
+        AuthorRepository $authorRepository,
         UserRepository $userRepository,
         BookRepository $bookRepository,
         BorrowerRepository $borrowerRepository,
@@ -57,8 +59,16 @@ class TestController extends AbstractController
         // dump($firstBook);
 
         // // Récupération des books comprennant 'lorem' dans le titre
-        $loremBook = $bookRepository->findByTitle("lorem");
-        dump($loremBook);
+        // $loremBook = $bookRepository->findByTitle("lorem");
+        // dump($loremBook);
+
+        // // Récupération de la liste des livres dont l'id de l'auteur est 2
+        // $secondAuthorBooks = $bookRepository->findByAuthor(2);
+        // dump($secondAuthorBooks);
+
+        // Récupération de la liste des livres dont le genre contient le mot "roman"
+        $roman = $bookRepository->findByKind('roman');
+        dump($roman);
 
         exit();
     }

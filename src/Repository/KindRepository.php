@@ -19,22 +19,19 @@ class KindRepository extends ServiceEntityRepository
         parent::__construct($registry, Kind::class);
     }
 
-    // /**
-    //  * @return Kind[] Returns an array of Kind objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Kind[] Returns an array of Kind objects
+    */
+    public function findByName(string $value)
     {
         return $this->createQueryBuilder('k')
-            ->andWhere('k.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('k.name LIKE :val')
+            ->setParameter('val', "%{$value}%")
             ->orderBy('k.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Kind

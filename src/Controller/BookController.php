@@ -90,7 +90,5 @@ class BookController extends AbstractController
         }
 
         return $this->redirectToRoute('book_index');
-    }
-    
-        
+    }        
 }
