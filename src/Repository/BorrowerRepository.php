@@ -19,22 +19,46 @@ class BorrowerRepository extends ServiceEntityRepository
         parent::__construct($registry, Borrower::class);
     }
 
-    // /**
-    //  * @return Borrower[] Returns an array of Borrower objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Borrower[] Returns an array of Borrower objects
+     */
+    public function findByFirstnameOrLastname(string $value)
+    {
+        // Récupération d'un query builder.
+        $qb = $this->createQueryBuilder('b');
+        return $qb->where($qb->expr()->orX(
+                $qb->expr()->like('b.firstname', ':value'),
+                $qb->expr()->like('b.lastname', ':value')
+            ))
+            // Affactation d'une valeur à la variable :value.
+            // Le symbole % est joker qui veut dire
+            // « match toutes les chaînes de caractères ».
+            ->setParameter('value', "%{$value}%")
+            // Tri par firstname en ordre croissant (a, b, c, ...).
+            ->orderBy('b.firstname', 'ASC')
+            // En cas de firstname identiqu, on ajoute un tri par
+            // lastname en ordre croissant (a, b, c, ...).
+            ->orderBy('b.lastname', 'ASC')
+            // Récupération d'une requête qui n'attend qu'à être exécutée.
+            ->getQuery()
+            // Exécution de la requête.
+            // Récupération d'un tableau de résultat.
+            // Ce tableau peut contenir, zéro, un ou plusieurs lignes.
+            ->getResult()
+        ;
+    }
+
+    public function findByNumber(string $value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('b.phone_number LIKE :value')
+            ->setParameter('value', "%{$value}%")
+            ->orderBy('b.firstname', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Borrower

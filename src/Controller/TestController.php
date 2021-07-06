@@ -108,6 +108,28 @@ class TestController extends AbstractController
         // $entityManager->remove($deleteBook[0]);
         // $entityManager->flush();
 
+        // // Requête pour les emprunteurs
+        // // Afficher la liste complète
+        // $allBorrower = $borrowerRepository->findAll();
+        // dump($allBorrower);
+
+        // // Afficher les données du borrower dont l'id est 3
+        // $borrowerIdThree = $borrowerRepository->findById(3);
+        // dump($borrowerIdThree);
+
+        // // Afficher les données de l'emprunteur relié au user dont l'id est 3
+        // $borrower = $userRepository->findById(3);
+        // $userBorrower = $borrowerRepository->findOneByUser($borrower);
+        // dump($userBorrower);
+
+        // // Afficher la liste des borrower donc firstname or lastname contient le mot-clé "foo"
+        // $borrowerName = $borrowerRepository->findByFirstnameOrLastname("foo");
+        // dump($borrowerName);
+
+        // // Afficher la liste des emrpunteurs donc le phoneNumber contient '1234'
+        // $phoneBorrower = $borrowerRepository->findByNumber('1234');
+        // dump($phoneBorrower);        
+
         exit();
     }
 }
