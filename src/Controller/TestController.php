@@ -92,7 +92,21 @@ class TestController extends AbstractController
         //     $entityManager->flush();
         // }
 
+        // // Requête de modification d'un livre
+        // $kinds = $kindRepository->findById(2);
+        // $kindsId = $kindRepository->findById(5);
 
+        // $secondBook = $bookRepository->findById(2);
+        // $secondBook[0]->setTitle('Aperiendum est igitur');
+        // $secondBook[0]->removeKind($kinds[0]);
+        // $secondBook[0]->addKind($kindsId[0]);
+        // $entityManager->persist($secondBook[0]);
+        // $entityManager->flush();
+
+        // // Requête de supression d'un livre
+        // $deleteBook = $bookRepository->findById(123);
+        // $entityManager->remove($deleteBook[0]);
+        // $entityManager->flush();
 
         exit();
     }
