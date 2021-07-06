@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Book;
+use App\Entity\Author;
 use App\Repository\UserRepository;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
@@ -66,9 +68,31 @@ class TestController extends AbstractController
         // $secondAuthorBooks = $bookRepository->findByAuthor(2);
         // dump($secondAuthorBooks);
 
-        // Récupération de la liste des livres dont le genre contient le mot "roman"
-        $roman = $bookRepository->findByKind('roman');
-        dump($roman);
+        // // Récupération de la liste des livres dont le genre contient le mot "roman"
+        // $roman = $bookRepository->findByKind('roman');
+        // dump($roman);
+
+        // $books = $bookRepository->findAll();
+        // $lastBook = end($books);
+
+        // if($lastBook->getTitle() != 'Totum autem id externum'){
+
+        //     $authors = $authorRepository->findAll();
+        //     $kinds = $kindRepository->findAll();
+    
+        //     $newBook = new Book();
+        //     $newBook->setTitle('Totum autem id externum');
+        //     $newBook->setPublicationYear(2020);
+        //     $newBook->setNumberPages(300);
+        //     $newBook->setIsbnCode('9790412882714');
+        //     $newBook->setAuthor($authors[1]);
+        //     $newBook->addKind($kinds[5]);
+        //     $entityManager->persist($newBook);
+    
+        //     $entityManager->flush();
+        // }
+
+
 
         exit();
     }
