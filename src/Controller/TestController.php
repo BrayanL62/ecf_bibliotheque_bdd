@@ -129,14 +129,16 @@ class TestController extends AbstractController
         // // Afficher la liste des emrpunteurs donc le phoneNumber contient '1234'
         // $phoneBorrower = $borrowerRepository->findByNumber('1234');
         // dump($phoneBorrower);
+        
+        // // Afficher la liste des borrower dont la creation_date est inférieure à 01/03/2021
+        // $borrowerDate = $borrowerRepository->findOneByDate('2021-03-01');
+        // dump($borrowerDate);
 
         // // Afficher la liste des borrowers inactifs
         // $inactiveBorrower = $borrowerRepository->findByActive(false);
         // dump($inactiveBorrower);
+
         
         exit();
     }
 }
-
-// @Todo !!!
-// // Afficher la liste des borrower dont la creation_date est inférieure à 01/03/2021
