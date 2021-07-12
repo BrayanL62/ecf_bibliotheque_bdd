@@ -14,7 +14,13 @@ class KindType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('books')
+            ->add('books', EntityType::class, [
+                'class' => Book::class,
+                'choice_label' => function(Book $book){
+                    return "{$book->getTitle()}";
+                },
+                'multiple' => true,
+            ])
         ;
     }
 
