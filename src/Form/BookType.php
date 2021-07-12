@@ -16,8 +16,24 @@ class BookType extends AbstractType
             ->add('publication_year')
             ->add('number_pages')
             ->add('isbn_code')
-            ->add('author')
-            ->add('Kinds')
+            ->add('author', EntityType::class, [
+                // Looks for choices from this entity
+                'class' => Author::class,
+
+                'choice_label' => function(Author $author){
+                    return "{$author->getLastname()} {$author->getFirstname()}";
+                },
+                
+            ])
+            ->add('Kinds', EntityType::class, [
+                'class' => Kind::class,
+
+                'choice_label' => function(Kind $kind){
+                    return "{$kind->getName()}";
+                },
+                'multiple' => true,
+                'expanded' => true
+            ])
         ;
     }
 
