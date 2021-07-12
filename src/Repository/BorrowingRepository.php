@@ -63,17 +63,27 @@ class BorrowingRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    // public function findByKind($kind)
-    // {
-    //     return $this->createQueryBuilder('b')
-    //         ->innerJoin('b.kind', 'k')
-    //         ->andWhere('k.name LIKE :kind')
-    //         ->setParameter('kind', "%{$kind}%")
-    //         ->orderBy('b.title', 'ASC')
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
+    public function findByBookId($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.book', 'k')
+            ->andWhere('k.id = :value')
+            ->setParameter('value', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByIdAndReturn(int $value)
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.id = :val')
+            ->andWhere('b.return_date IS NULL')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //     public function findByBorrowerId(int $value)
 //     {
