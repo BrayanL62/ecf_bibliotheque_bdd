@@ -19,32 +19,69 @@ class BorrowingRepository extends ServiceEntityRepository
         parent::__construct($registry, Borrowing::class);
     }
 
-    // /**
-    //  * @return Borrowing[] Returns an array of Borrowing objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Borrowing[] Returns an array of Borrowing objects
+     */
+
+    public function findByBorrowing()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
+            ->orderBy('b.borrowing_date', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Borrowing
+    public function findByReturnDate()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.return_date IS NULL')
+            // ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
+
+    public function findOneByReturnDate(string $value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.return_date < :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByBorrowerId($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.borrower', 'k')
+            ->andWhere('k.id = :value')
+            ->setParameter('value', $value)
+            // ->orderBy('b.title', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    // public function findByKind($kind)
+    // {
+    //     return $this->createQueryBuilder('b')
+    //         ->innerJoin('b.kind', 'k')
+    //         ->andWhere('k.name LIKE :kind')
+    //         ->setParameter('kind', "%{$kind}%")
+    //         ->orderBy('b.title', 'ASC')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
+//     public function findByBorrowerId(int $value)
+//     {
+//         return $this->createQueryBuilder('b')
+//             ->andWhere('b.borrower_id = :val')
+//             ->setParameter('val', $value)
+//             ->getQuery()
+//             ->getResult()
+//         ;
+//     }
 }

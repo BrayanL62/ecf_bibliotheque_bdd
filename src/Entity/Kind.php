@@ -77,10 +77,10 @@ class Kind
     /**
      * @return Collection|Book[]
      */
-    public function getBooks(): Collection
-    {
-        return $this->books;
-    }
+    // public function getBooks(): Collection
+    // {
+    //     return $this->books;
+    // }
 
     public function addBook(Book $book): self
     {

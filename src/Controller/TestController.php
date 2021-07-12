@@ -138,6 +138,28 @@ class TestController extends AbstractController
         // $inactiveBorrower = $borrowerRepository->findByActive(false);
         // dump($inactiveBorrower);
 
+        // // Requête pour les borrowings
+        // // Afficher la liste des 10 derniers borrowings chronologiquement
+        // $borrowings = $borrowingRepository->findByBorrowing();
+        // dump($borrowings);
+
+        // // Afficher la liste des emprunts du borrower dont l'id est 2
+        // $borrowerId = $borrowingRepository->findByBorrowerId(2);
+        // dump($borrowerId);
+
+        // Afficher la liste des emprunts du livre dont l'id est 3
+
+        // // Afficher la liste des emprunts qui ont été retournés avant le 01/01/2021
+        // $borrowingDate = $borrowingRepository->findOneByReturnDate('2021-01-01');
+        // dump($borrowingDate);
+
+        // // Afficher la liste des emprunts qui n'ont pas encore été retournés 
+        // $borrowingReturnDate = $borrowingRepository->findByReturnDate();
+        // dump($borrowingReturnDate);
+        
+        // Afficher les données de l'emprunt du livre dont l'id est 3 et qui n'a pas encore été retournés 
+        
+
         
         exit();
     }

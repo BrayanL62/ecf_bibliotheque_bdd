@@ -186,11 +186,11 @@ class Book
         return $this;
     }
 
-    /**
-     * @return Collection|Kind[]
-     */
-    public function getKinds(): Collection
-    {
-        return $this->kinds;
-    }
+    // /**
+    //  * @return Collection|Kind[]
+    //  */
+    // public function getKinds(): Collection
+    // {
+    //     return $this->kinds;
+    // }
 }
