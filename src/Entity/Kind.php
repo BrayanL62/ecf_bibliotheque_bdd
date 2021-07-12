@@ -30,19 +30,13 @@ class Kind
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="kind")
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="Kinds")
      */
     private $books;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Book::class, inversedBy="kinds")
-     */
-    private $book;
 
     public function __construct()
     {
         $this->books = new ArrayCollection();
-        $this->book = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,10 +71,10 @@ class Kind
     /**
      * @return Collection|Book[]
      */
-    // public function getBooks(): Collection
-    // {
-    //     return $this->books;
-    // }
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
 
     public function addBook(Book $book): self
     {
@@ -99,13 +93,5 @@ class Kind
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Book[]
-     */
-    public function getBook(): Collection
-    {
-        return $this->book;
     }
 }

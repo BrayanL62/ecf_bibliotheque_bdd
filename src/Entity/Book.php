@@ -53,19 +53,13 @@ class Book
     /**
      * @ORM\ManyToMany(targetEntity=Kind::class, inversedBy="books")
      */
-    private $kind;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Kind::class, mappedBy="book")
-     */
-    private $kinds;
+    private $Kinds;
 
     public function __construct()
     {
-        $this->borrowings = new ArrayCollection();
-        $this->kind = new ArrayCollection();
-        $this->kinds = new ArrayCollection();
+        $this->Kinds = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -165,15 +159,15 @@ class Book
     /**
      * @return Collection|Kind[]
      */
-    public function getKind(): Collection
+    public function getKinds(): Collection
     {
-        return $this->kind;
+        return $this->Kinds;
     }
 
     public function addKind(Kind $kind): self
     {
-        if (!$this->kind->contains($kind)) {
-            $this->kind[] = $kind;
+        if (!$this->Kinds->contains($kind)) {
+            $this->Kinds[] = $kind;
         }
 
         return $this;
@@ -181,16 +175,8 @@ class Book
 
     public function removeKind(Kind $kind): self
     {
-        $this->kind->removeElement($kind);
+        $this->Kinds->removeElement($kind);
 
         return $this;
     }
-
-    // /**
-    //  * @return Collection|Kind[]
-    //  */
-    // public function getKinds(): Collection
-    // {
-    //     return $this->kinds;
-    // }
 }
