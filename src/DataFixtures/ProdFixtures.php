@@ -32,6 +32,9 @@ class ProdFixtures extends Fixture implements FixtureGroupInterface
         // Pour que la méthode statique getGroups() soit prise
         // en compte, il faut que la classe implémente
         // l'interface FixtureGroupInterface.
+
+        // Lorsque l'on vient tester notre ProdFixtures, utiliser la commande
+        // php bin/console doctrine:fixtures:load --group=prod --no-interaction
         return ['prod'];
     }
 
@@ -79,7 +82,7 @@ class ProdFixtures extends Fixture implements FixtureGroupInterface
             $authors[] = $author;
         }
 
-        // // On retourne le tableau Authors afin de pouvoir l'utiliser dans d'autres fonctions.
+        // On retourne le tableau Authors afin de pouvoir l'utiliser dans d'autres fonctions.
         return $authors;
 
     }
@@ -251,100 +254,20 @@ class ProdFixtures extends Fixture implements FixtureGroupInterface
 
     public function loadKinds(ObjectManager $manager, array $kindArray)
     {
-        
         $kinds = [];
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[0]);
 
-        $manager->persist($kind);
+        foreach ($kindArray as $key => $value) {
             
-        $kinds[] = $kind;
+            $kind = new Kind();
+            $kind->setName($kindArray[0]);
+    
+            $manager->persist($kind);
+                
+            $kinds[] = $kind;
+        }
         
-        $kind = new Kind();
-        $kind->setName($kindArray[1]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
         
-        $kind = new Kind();
-        $kind->setName($kindArray[2]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
         
-        $kind = new Kind();
-        $kind->setName($kindArray[3]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[4]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[5]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[6]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[7]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[8]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[9]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[11]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[12]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        $kind = new Kind();
-        $kind->setName($kindArray[0]);
-
-        $manager->persist($kind);
-            
-        $kinds[] = $kind;
-        
-        return $kinds;
+      return $kinds;
     }
 }

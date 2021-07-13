@@ -29,12 +29,15 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
 
     public static function getGroups(): array
     {
-        // Cette fixture fait partie du groupe "prod".
+        // Cette fixture fait partie du groupe "test".
         // Cela permet de cibler seulement certains fixtures
         // quand on exécute la commande doctrine:fixtures:load.
         // Pour que la méthode statique getGroups() soit prise
         // en compte, il faut que la classe implémente
         // l'interface FixtureGroupInterface.
+
+        // Lorsque l'on vient tester notre AppFixtures, utiliser la commande
+        // php bin/console doctrine:fixtures:load --group=test --no-interaction
         return ['test'];
     }
 
