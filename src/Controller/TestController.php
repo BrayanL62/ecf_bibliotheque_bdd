@@ -73,6 +73,7 @@ class TestController extends AbstractController
         // $roman = $bookRepository->findByKind('roman');
         // dump($roman);
 
+        // // Requête de création d'un livre 
         // $books = $bookRepository->findAll();
         // $lastBook = end($books);
 
@@ -164,7 +165,7 @@ class TestController extends AbstractController
         // $borrowingIdAndReturnFalse = $borrowingRepository->findByIdAndReturn(3);
         // dump($borrowingIdAndReturnFalse);
 
-        // Requête de d'ajout d'un emprunt 
+        // // Requête de d'ajout d'un emprunt 
         
         // $borrowers = $borrowerRepository->findAll();
         // $books = $bookRepository->findAll();
@@ -176,7 +177,7 @@ class TestController extends AbstractController
         // $entityManager->persist($newBorrowing);
         // $entityManager->flush();
 
-        // Requête de mise à jour
+        // // Requête de mise à jour
 
         // $thirdBorrowing = $borrowingRepository->findOneById(3);
         // $thirdBorrowing->setReturnDate(\DateTime::createFromFormat('Y-m-d H:i:s', '2020-05-01 10:00:00'));

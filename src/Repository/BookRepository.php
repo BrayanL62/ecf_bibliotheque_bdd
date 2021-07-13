@@ -52,7 +52,7 @@ class BookRepository extends ServiceEntityRepository
     public function findByKind($kind)
     {
         return $this->createQueryBuilder('b')
-            ->innerJoin('b.kind', 'k')
+            ->innerJoin('b.Kinds', 'k')
             ->andWhere('k.name LIKE :kind')
             ->setParameter('kind', "%{$kind}%")
             ->orderBy('b.title', 'ASC')
