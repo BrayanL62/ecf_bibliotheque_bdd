@@ -27,5 +27,26 @@ td {
     height: 50px;
 }
 
-//                  <!-- Style du bouton pour accéder au formulaire de login -->
+//                  <!-- Style du formulaire de login -->
 
+.h3, .btn  {
+    padding: 10px 15px;
+    text-align: center;
+}
+
+#inputEmail, #inputPassword {
+    width: 500px;
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.labelEmail, .labelPassword {
+    display: block;
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    margin: 20px auto;
+}
