@@ -1,12 +1,31 @@
 // customize some Bootstrap variables
-$primary: darken(#7b8abd, 20%);
+$primary: darken(#51545e, 20%);
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
 
+//                  <!-- Style du body -->
+
 body {
     background-color: lightsalmon;
 }
-a {
-    color: #000;
+
+//                  <!-- Style de la navbar et des liens -->
+
+.navbar-dark {
+    padding: 10px;
 }
+
+a {
+    color: $primary;
+    text-decoration: none;
+}
+
+//                  <!-- Style de la mise en page -->
+
+td {
+    height: 50px;
+}
+
+//                  <!-- Style du bouton pour accéder au formulaire de login -->
+
