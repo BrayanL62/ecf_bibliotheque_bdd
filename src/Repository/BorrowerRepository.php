@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Borrower;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -73,6 +74,22 @@ class BorrowerRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->andWhere('b.creation_date < :val')
             ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return Borrower
+    */
+    public function findOneByUser(User $user, string $role = '')
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.user_id', 'k')
+            ->andWhere('u.id = :value')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('value', $value)
+            // ->orderBy('b.title', 'ASC')
             ->getQuery()
             ->getResult()
         ;
