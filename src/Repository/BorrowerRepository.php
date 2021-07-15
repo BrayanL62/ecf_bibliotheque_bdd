@@ -84,13 +84,28 @@ class BorrowerRepository extends ServiceEntityRepository
     */
     public function findOneByUser(User $user, string $role = '')
     {
-        return $this->createQueryBuilder('b')
-            ->innerJoin('b.user_id', 'k')
-            ->andWhere('u.id = :value')
+        return $this->createQueryBuilder('p')
+            // Demande de jointure de l'objet user.
+            // 'u' sera l'alias qui permet de désigner un user.
+            ->leftJoin('p.user', 'u')
+            // Ajout d'un filtre qui ne retient que le profil
+            // qui possède une relation avec la variable :user.
+            ->andWhere('p.user = :user')
+            // Ajout d'un filtre qui ne retient que les users
+            // qui contiennent (opérateur LIKE) la chaîne de
+            // caractères contenue dans la variable :role.
             ->andWhere('u.roles LIKE :role')
-            ->setParameter('value', $value)
-            // ->orderBy('b.title', 'ASC')
+            // Affectation d'une valeur à la variable :user.
+            ->setParameter('user', $user)
+            // Affectation d'une valeur à la variable :role.
+            // Le symbole % est joker qui veut dire
+            // « match toutes les chaînes de caractères ».
+            ->setParameter('role', "%{$role}%")
+            // Récupération d'une requête qui n'attend qu'à être exécutée.
             ->getQuery()
+            // Exécution de la requête.
+            // Récupération d'une variable qui peut contenir
+            // un profil ou la valeur nulle.
             ->getResult()
         ;
     }

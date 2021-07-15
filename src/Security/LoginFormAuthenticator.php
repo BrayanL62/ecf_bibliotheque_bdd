@@ -2,23 +2,26 @@
 
 namespace App\Security;
 
+
 use App\Repository\BorrowerRepository;
 use App\Entity\User;
+use App\Entity\Borrower;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
@@ -45,6 +48,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->borrowerRepository = $borrowerRepository;
+       
     }
 
     public function supports(Request $request)
@@ -103,25 +108,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
         $user = $token->getUser();
+       
         // $studentId = 123;
 
         if(in_array('ROLE_ADMIN', $user->getRoles())){
             $url = $this->urlGenerator->generate('user_index');
         } 
+        elseif(in_array('ROLE_BORROWER', $user->getRoles())){
+            
+                // if(!student){
+                //     throw new \Exception("Aucun profil n'est rattaché à cet utilisateur");
+                // }
+                $this->borrowerRepository->findOneByUser($user);
+                $url = $this->urlGenerator->generate('borrower_show', [
+                    'id' => $user->getId(),
+                ]);
+        }
         elseif(in_array('ROLE_USER', $user->getRoles())){
             $url = $this->urlGenerator->generate('book_index');
         } 
-        // elseif(in_array('ROLE_BORROWER', $user->getRoles())){
-
-        //     if(!student){
-        //         throw new \Exception("Aucun profil n'est rattaché à cet utilisateur");
-        //     }
-
-            // $this->borrowerRepository->findOneByUser($user);
-            // $url = $this->urlGenerator->generate('borrower_show', [
-            //     'id' => $borrower->getId(),
-            // ]);
-        // } elseif(in_array('ROLE_CLIENT', $user->getRoles())){
+        //  elseif(in_array('ROLE_CLIENT', $user->getRoles())){
         //     $url = $this->urlGenerator->generate('project_index');
         // } else {
         //     throw new \Exception('ptdr t ki?');
