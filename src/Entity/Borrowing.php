@@ -29,7 +29,7 @@ class Borrowing
 
     /**
      * @ORM\ManyToOne(targetEntity=Borrower::class, inversedBy="borrowings")
-     * @ORM\JoinColumn(nullable="CASCADE")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
     private $borrower;
 
