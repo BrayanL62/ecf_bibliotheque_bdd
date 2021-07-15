@@ -127,11 +127,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         elseif(in_array('ROLE_USER', $user->getRoles())){
             $url = $this->urlGenerator->generate('book_index');
         } 
-        //  elseif(in_array('ROLE_CLIENT', $user->getRoles())){
-        //     $url = $this->urlGenerator->generate('project_index');
-        // } else {
-        //     throw new \Exception('ptdr t ki?');
-        // }
+        else {
+            throw new \Exception('ptdr t ki?');
+        }
 
         return new RedirectResponse($url);
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
