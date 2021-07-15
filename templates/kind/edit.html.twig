@@ -3,6 +3,11 @@
 {% block title %}Edit Kind{% endblock %}
 
 {% block body %}
+<style>
+    h1{ text-align: center; margin: 15px auto}
+    label, input, div { display: block; margin: 15px auto; text-align: center; }
+    a { display: block; text-align: center;}
+</style>
     <h1>Edit Kind</h1>
 
     {{ include('kind/_form.html.twig', {'button_label': 'Update'}) }}

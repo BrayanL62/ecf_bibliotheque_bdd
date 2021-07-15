@@ -3,6 +3,12 @@
 {% block title %}New Borrowing{% endblock %}
 
 {% block body %}
+<style>
+    h1{ text-align: center; margin: 15px auto}
+    label, input { display: block; margin: 15px auto; text-align: center; }
+    a { display: block; text-align: center; }
+    #borrowing { text-align: center }
+</style>
     <h1>Create new Borrowing</h1>
 
     {{ include('borrowing/_form.html.twig') }}

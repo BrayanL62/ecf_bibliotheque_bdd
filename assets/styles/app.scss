@@ -14,6 +14,7 @@ body {
 
 .navbar-dark {
     padding: 10px;
+    display: flex;
 }
 
 a {
@@ -49,4 +50,11 @@ td {
 .btn {
     display: block;
     margin: 20px auto;
+}
+
+.h1 {
+    text-align: center;
+}
+form {
+    margin: auto;
 }

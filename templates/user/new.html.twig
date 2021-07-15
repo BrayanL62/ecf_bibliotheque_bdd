@@ -3,6 +3,11 @@
 {% block title %}New User{% endblock %}
 
 {% block body %}
+<style>
+    h1{ text-align: center; margin: 15px auto}
+    label, input { display: block; margin: 15px auto; text-align: center; }
+    a { display: block; text-align: center; }
+</style>
     <h1>Create new User</h1>
 
     {{ include('user/_form.html.twig') }}

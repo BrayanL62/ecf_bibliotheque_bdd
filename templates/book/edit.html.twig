@@ -3,6 +3,12 @@
 {% block title %}Edit Book{% endblock %}
 
 {% block body %}
+<style>
+    h1{ text-align: center; margin: 15px auto}
+    label, input, select { display: block; margin: 15px auto; text-align: center; }
+    a { display: block; text-align: center; }
+    #book_Kinds { display: flex; justify-content: space-around; max-width: 80%; flex-wrap: wrap; margin: auto}
+</style>
     <h1>Edit Book</h1>
 
     {{ include('book/_form.html.twig', {'button_label': 'Update'}) }}
