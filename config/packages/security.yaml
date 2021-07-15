@@ -34,10 +34,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+    
         # - { path: ^/profile, roles: ROLE_USER }
         # Tous les chemins comprennant /borrower/id/edit ne sont accéssible qu'au ROLE_ADMIN et au ROLE_BORROWER
-        - { path: "^/borrower/[0-9]+/edit", roles: [ROLE_ADMIN, ROLE_BORROWER, ROLE_USER] }
-        - { path: "^/borrower/[0-9]+/?$", roles: [ROLE_ADMIN, ROLE_BORROWER, ROLE_USER] }
-        # Tous les chemins commençant par /student ne sont accéssible qu'au ROLE_ADMIN
+        - { path: "^/borrower/[0-9]+/edit", roles: [ROLE_ADMIN, ROLE_BORROWER] }
+        - { path: "^/borrower/[0-9]+/?$", roles: [ROLE_ADMIN, ROLE_BORROWER] }
+        # Tous les chemins commençant par / ne sont accéssible qu'au ROLE_ADMIN
+        # Accès de toutes les routes pour l'admin
+        - { path: ^/author, roles: ROLE_ADMIN }
+        - { path: ^/book, roles: ROLE_ADMIN }
+        - { path: ^/borrowing, roles: ROLE_ADMIN }
+        - { path: ^/kind, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_ADMIN }
         - { path: ^/borrower, roles: ROLE_ADMIN }

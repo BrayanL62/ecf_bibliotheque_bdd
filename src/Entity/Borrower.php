@@ -50,13 +50,14 @@ class Borrower
     private $modification_date;
 
     /**
-     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="borrower")
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="borrower", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $borrowings;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $user;
 

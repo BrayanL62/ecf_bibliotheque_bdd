@@ -31,6 +31,7 @@ class Author
 
     /**
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="author")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $books;
 
