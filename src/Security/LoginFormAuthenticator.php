@@ -108,21 +108,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
         $user = $token->getUser();
-       
-        // $studentId = 123;
 
         if(in_array('ROLE_ADMIN', $user->getRoles())){
             $url = $this->urlGenerator->generate('user_index');
         } 
         elseif(in_array('ROLE_BORROWER', $user->getRoles())){
-            
-                // if(!student){
-                //     throw new \Exception("Aucun profil n'est rattaché à cet utilisateur");
-                // }
-                $this->borrowerRepository->findOneByUser($user);
-                $url = $this->urlGenerator->generate('borrower_show', [
-                    'id' => $user->getId(),
-                ]);
+
+            $borrower = $this->borrowerRepository->findOneByUser($user);
+            $url = $this->urlGenerator->generate('borrower_show', [
+                'id' => $borrower[0]->getId(),
+            ]);
         }
         elseif(in_array('ROLE_USER', $user->getRoles())){
             $url = $this->urlGenerator->generate('book_index');

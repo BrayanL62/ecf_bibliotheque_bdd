@@ -192,7 +192,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $user = new User();
         $user->setEmail('foo.foo@example.com');
         // hashage du mot de passe
-        $password = $this->encoder->encodePassword($user, $this->faker->password());
+        $password = $this->encoder->encodePassword($user, '123');
         $user->setPassword($password);
         $user->setRoles(['ROLE_BORROWER']);
 

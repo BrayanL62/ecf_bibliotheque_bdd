@@ -35,6 +35,7 @@ class Borrowing
 
     /**
      * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="borrowings")
+     * @ORM\JoinColumn(onDelete="cascade")
      */
     private $book;
 
