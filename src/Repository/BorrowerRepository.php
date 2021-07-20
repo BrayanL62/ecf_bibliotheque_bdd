@@ -60,7 +60,7 @@ class BorrowerRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findOneByActive(Boolean $value)
+    public function findOneByActive(bool $value)
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.active = :val')

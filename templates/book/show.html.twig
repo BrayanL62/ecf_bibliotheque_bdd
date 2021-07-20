@@ -19,6 +19,10 @@
                 <th>Title</th>
                 <td>{{ book.title }}</td>
             </tr>
+            {# <tr>
+                <th>Available</th>
+                <td>{{ book.borrowing.returnDate ? 'Disponible' : 'Non-Disponible' }}</td>
+            </tr> #}
             <tr>
                 <th>Publication_year</th>
                 <td>{{ book.publicationYear }}</td>
@@ -30,6 +34,18 @@
             <tr>
                 <th>Isbn_code</th>
                 <td>{{ book.isbnCode }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ book.author.lastname }} {{ book.author.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Kind</th>
+                <td>
+                    {% for kind in book.kinds %}
+                        <p>{{ kind.name }}{% if not loop.last%},{% endif %}</p>
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>

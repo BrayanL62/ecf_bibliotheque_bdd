@@ -23,6 +23,14 @@
                 <th>Return_date</th>
                 <td>{{ borrowing.returnDate ? borrowing.returnDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Borrower</th>
+                <td>{{ borrowing.borrower.firstname }} {{borrowing.borrower.lastname}}</td>
+            </tr>
+            <tr>
+                <th>Book</th>
+                <td>{{ borrowing.book.title }}</td>
+            </tr>
         </tbody>
     </table>
 

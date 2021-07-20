@@ -38,39 +38,33 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
         # Accès des chemins commençant par /author
-        - { path: ^/author, roles: [ROLE_ADMIN, ROLE_BORROWER] }
         - { path: "^/author/new", roles: ROLE_ADMIN }
         - { path: "^/author/[0-9]+/edit", roles: ROLE_ADMIN }
-        - { path: "^/author/[0-9]+/show", roles: [ROLE_ADMIN, ROLE_BORROWER] }
+        - { path: ^/author, roles: [ROLE_ADMIN, ROLE_BORROWER] }
 
         # Accès des chemins commençant par /book
-        - { path: ^/book, roles: [ROLE_ADMIN, ROLE_BORROWER] }
-        - { path: "^/book/new", roles: ROLE_ADMIN }
         - { path: "^/book/[0-9]+/edit", roles: ROLE_ADMIN }
-        - { path: "^/book/[0-9]+/show", roles: [ROLE_ADMIN, ROLE_BORROWER] }
+        - { path: "^/book/new", roles: ROLE_ADMIN }
+        - { path: ^/book, roles: [ROLE_ADMIN, ROLE_BORROWER] }
 
         # Accès des chemins commençant par /borrower
-        - { path: "^/borrower/[0-9]+/?$", roles: [ROLE_ADMIN, ROLE_BORROWER] }
         - { path: "^/borrower/[0-9]+/edit", roles: [ROLE_ADMIN, ROLE_BORROWER] }
-        - { path: ^/borrower, roles: ROLE_ADMIN }
+        - { path: "^/borrower/[0-9]+/?$", roles: [ROLE_ADMIN, ROLE_BORROWER] }
         - { path: "^/borrower/new", roles: ROLE_ADMIN }
-        - { path: "^/borrower/[0-9]+/show", roles: [ROLE_ADMIN, ROLE_BORROWER] }
+        - { path: ^/borrower, roles: ROLE_ADMIN }
 
         # Accès des chemins commençant par /borrowing
         - { path: ^/borrowing, roles: ROLE_ADMIN }
         - { path: "^/borrowing/new", roles: ROLE_ADMIN }
         - { path: "^/borrowing/[0-9]+/?$", roles: ROLE_ADMIN }
         - { path: "^/borrowing/[0-9]+/edit", roles: ROLE_ADMIN }
-        - { path: "^/borrowing/[0-9]+/show", roles: ROLE_ADMIN }
 
         # Accès des chemins commençant par /kind
         - { path: "^/kind/[0-9]+/edit", roles: ROLE_ADMIN }
         - { path: ^/kind, roles: [ROLE_ADMIN, ROLE_BORROWER] }
         - { path: "^/kind/new", roles: ROLE_ADMIN }
-        - { path: "^/kind/[0-9]+/show", roles: [ROLE_ADMIN, ROLE_BORROWER] }
 
         # Accès des chemins commençant par /user
-        - { path: ^/user, roles: ROLE_ADMIN }
         - { path: "^/user/new", roles: ROLE_ADMIN }
         - { path: "^/user/[0-9]+/edit", roles: ROLE_ADMIN }
-        - { path: "^/user/[0-9]+/show", roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_ADMIN }

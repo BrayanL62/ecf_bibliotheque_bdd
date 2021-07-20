@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Borrower;
+use App\Entity\User;
+use App\Form\RegistrationFormType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +19,13 @@ class BorrowerType extends AbstractType
             ->add('firstname')
             ->add('phone_number')
             ->add('active')
-            // ->add('creation_date')
+            ->add('creation_date')
             // ->add('modification_date')
-            // ->add('user')
+            ->add('user', RegistrationFormType::class, [
+                'label_attr' => [
+                    'class' => 'd-none',
+                ]
+            ])
         ;
     }
 

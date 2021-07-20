@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
+use App\Entity\Borrower;
 use App\Entity\Borrowing;
 use App\Form\BorrowingType;
 use App\Repository\BorrowingRepository;
@@ -53,6 +55,7 @@ class BorrowingController extends AbstractController
      */
     public function show(Borrowing $borrowing): Response
     {
+
         return $this->render('borrowing/show.html.twig', [
             'borrowing' => $borrowing,
         ]);
