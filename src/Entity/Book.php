@@ -179,4 +179,18 @@ class Book
 
         return $this;
     }
+
+    public function isAvailable(): bool
+    {
+        // S'il n'y a pas d'emrpunt, le livre est dispo
+        // S'il il a des emrpunts mais qu'ils ont tous été retournés, le livre est dispo
+
+        foreach($this->getBorrowings() as $borrowing){
+            if($borrowing->getReturnDate() == null){
+                return false;
+            }
+            
+        }
+        return true;
+    }
 }

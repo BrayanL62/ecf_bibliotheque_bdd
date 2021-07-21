@@ -16,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookController extends AbstractController
 {
     /**
-     * @Route("/", name="book_index", methods={"GET"})
+     * @Route("/", name="book_index", methods={"GET", "POST"})
      */
-    public function index(BookRepository $bookRepository): Response
+    public function index(Request $request, BookRepository $bookRepository): Response
     {
         return $this->render('book/index.html.twig', [
             'books' => $bookRepository->findAll(),

@@ -5,15 +5,51 @@
 {% block body %}
 <style>
     body { background: lightsalmon; }
-    .example-wrapper { margin: 1em auto; width: 95%; }
+    {# .example-wrapper { margin: 1em auto; width: 95%; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    h1, p { text-align: center; margin: 20px auto; }
+    h1, p { text-align: center; margin: 20px auto; } #}
 </style>
 
-<div class="example-wrapper">
-    <h1>Bienvenue sur mon application de base de données</h1>
-    <p>Pour pouvoir accéder à l'application et ainsi intéragir correctement dans les interfaces, vous devez dans un premier temps vous identifier</p>
-    <p>Vous pouvez tout de même accéder à l'application sans identification (anonyme), mais votre seule action possible sera de visualiser les pages</p>
-    
-</div>
+    <table class="table">
+        <tbody>
+            {% for book in books %} 
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publicationYear }}</td>
+                <td>{{ book.numberPages }}</td>
+                <td>{{ book.isbnCode }}</td>
+                <td>{{ book.author.lastname }} {{ book.author.firstname }}</td>
+                <td>
+                    {% for kind in book.kinds %}
+                        <p>{{ kind.name }}{% if not loop.last%},{% endif %}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+            {# <tr>
+                <th>Publication_year</th>
+            </tr>
+            <tr>
+                <th>Number_pages</th>
+            </tr>
+            <tr>
+                <th>Isbn_code</th>
+            </tr>
+            <tr>
+                <th>Author</th>
+            </tr>
+            <tr>
+                <th>Kind</th>
+                <td>
+                </td>
+            </tr> #}
+            {% endfor %}
+        </tbody>
+</table>
+    {# <tr><th>{{ book.id }}</th></tr> #}
+
+
+
+
+
 {% endblock %}

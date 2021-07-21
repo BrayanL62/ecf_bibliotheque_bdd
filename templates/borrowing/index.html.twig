@@ -15,6 +15,8 @@
                 <th>Id</th>
                 <th>Borrowing_date</th>
                 <th>Return_date</th>
+                <th>Borrower</th>
+                <th>Book</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +26,8 @@
                 <td>{{ borrowing.id }}</td>
                 <td>{{ borrowing.borrowingDate ? borrowing.borrowingDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ borrowing.returnDate ? borrowing.returnDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ borrowing.borrower.firstname }} {{borrowing.borrower.lastname}}</td>
+                <td>{{ borrowing.book.title }}</td>
                 <td>
                     <a href="{{ path('borrowing_show', {'id': borrowing.id}) }}">show</a>
                     <a href="{{ path('borrowing_edit', {'id': borrowing.id}) }}">edit</a>

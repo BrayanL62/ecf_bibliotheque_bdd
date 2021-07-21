@@ -106,7 +106,7 @@ class BorrowerRepository extends ServiceEntityRepository
             // Exécution de la requête.
             // Récupération d'une variable qui peut contenir
             // un profil ou la valeur nulle.
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 

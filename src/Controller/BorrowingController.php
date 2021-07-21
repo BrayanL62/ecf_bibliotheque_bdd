@@ -7,9 +7,11 @@ use App\Entity\Borrower;
 use App\Entity\Borrowing;
 use App\Form\BorrowingType;
 use App\Repository\BorrowingRepository;
+use App\Repository\BorrowerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -53,9 +55,27 @@ class BorrowingController extends AbstractController
     /**
      * @Route("/{id}", name="borrowing_show", methods={"GET"})
      */
-    public function show(Borrowing $borrowing): Response
+    public function show(Borrowing $borrowing, BorrowerRepository $borrowerRepository): Response
     {
 
+        if ($this->isGranted('ROLE_BORROWER')) {
+            // L'utilisateur est un student
+            
+            // On récupère le compte de l'utilisateur authentifié
+            $user = $this->getUser();
+
+            // On récupère le profil student lié au compte utilisateur
+            $borrower = $borrowerRepository->findOneByUser($user);
+
+            // On vérifie si la school year que l'utilisateur demande et la school year
+            // auquel il est rattaché correspondent.
+            // Si ce n'est pas le cas on lui renvoit un code 404
+            if (!$borrower->getborrowings()->contains($borrowing)) {
+                throw new NotFoundHttpException();
+            }
+
+            
+        }
         return $this->render('borrowing/show.html.twig', [
             'borrowing' => $borrowing,
         ]);

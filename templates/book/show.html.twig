@@ -47,6 +47,10 @@
                     {% endfor %}
                 </td>
             </tr>
+            <tr>
+                <th>Available</th>
+                <td>{{ book.isAvailable ? "Disponible" : "Indisponible" }}</td>
+            </tr>
         </tbody>
     </table>
 

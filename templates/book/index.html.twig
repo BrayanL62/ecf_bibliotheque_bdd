@@ -17,6 +17,9 @@
                 <th>Publication_year</th>
                 <th>Number_pages</th>
                 <th>Isbn_code</th>
+                <th>Author</th>
+                <th>Kind</th>
+                <th>Available</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -28,6 +31,13 @@
                 <td>{{ book.publicationYear }}</td>
                 <td>{{ book.numberPages }}</td>
                 <td>{{ book.isbnCode }}</td>
+                <td>{{ book.author.lastname }} {{ book.author.firstname }}</td>
+                <td>
+                    {% for kind in book.kinds %}
+                        <p>{{ kind.name }}{% if not loop.last%},{% endif %}</p>
+                    {% endfor %}
+                </td>
+                <td>{{ book.isAvailable ? "Disponible" : "Indisponible" }}</td>
                 <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
                     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
