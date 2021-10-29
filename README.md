@@ -1,4 +1,18 @@
-# ECF - Part 1 - Projet bibliothèque - BDD
+# Pour utiliser ce projet
+
+cloner ce repository
+`cd nom_du_repository
+composer install
+npm run build`
+
+Créer le fichier `.env.local` et y ajouter votre `DATABASE_URL`
+
+Lancer le script `bin/dofilo.sh` pour configurer le schéma de la BDD et y injecter les données présentes dans le fichier `AppFixtures.php`
+
+Lancer la commande `symfony serve` pour démarrer le serveur et navigation dans l'application.
+
+
+## ECF - Part 1 - Projet bibliothèque - BDD
 
 Le but de cet exercice est de maîtriser la création d'une base de données (BDD) qui sera utilisée dans une application web dynamique.
 
